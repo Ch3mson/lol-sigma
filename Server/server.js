@@ -15,7 +15,13 @@ function getPlayerPUUID(playerName, playerTag) {
         }).catch(err => err);
 }
 
-
+function getMatches(puuid, count) {
+    return axios.get("https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?start=0&count=" + count + "&api_key=" + API_KEY)
+        .then(response => {
+            console.log(response.data);
+            return response.data;
+        }).catch(err => err);
+}
 
 
 app.get('/games', async (req, res) => {
@@ -23,7 +29,11 @@ app.get('/games', async (req, res) => {
     const tag = "69420";
     const userdata = await getPlayerPUUID(name, tag);
 
-    res.json(userdata);
+    const PUUID = userdata.puuid;
+    const matches = await getMatches(PUUID, 100)
+
+    res.json({userdata, matches});
+    
 });
 
 
