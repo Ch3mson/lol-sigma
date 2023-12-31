@@ -6,7 +6,7 @@ import Overview from './components/overview';
 function App() {
 
   const [searchText, setSearchText] = useState("");
-  const API_KEY = "RGAPI-827965d6-c6b8-4fd5-9506-79f603fa2bce";
+  const API_KEY = "RGAPI-e3059c24-7b56-43d0-bba3-8f6870da3c2d";
   const [playerData, setPlayerData] = useState({});
 
   function searchForPlayer(event) {
@@ -48,10 +48,7 @@ function App() {
       </div>
         {JSON.stringify(playerData) != '{}' ? 
               <>
-                <Overview/>
-                {/* <p>{playerData.name}</p>
-                <p>{playerData.summonerLevel}</p>
-                <img src={"https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/" + playerData.profileIconId + ".png"}></img> */}
+                <Overview name={playerData.name} profID={playerData.profileIconId} />
               </>
               :
               <><p>No Player Data</p></>
