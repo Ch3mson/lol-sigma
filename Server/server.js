@@ -3,9 +3,10 @@ var cors = require('cors')
 const axios = require('axios');
 
 var app = express()
+app.use(cors());
 
 
-const API_KEY = "RGAPI-e3059c24-7b56-43d0-bba3-8f6870da3c2d";
+const API_KEY = "RGAPI-222e6187-3ef8-4855-847e-8b0361697b71";
 
 function getPlayerPUUID(playerName, playerTag) {
     return axios.get("https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + playerName + "/" + playerTag + "?api_key=" + API_KEY)
@@ -23,17 +24,24 @@ function getMatches(puuid, count) {
         }).catch(err => err);
 }
 
+function getUserData(puuid) {
+    return axios.get("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/" + puuid + "?api_key=" + API_KEY)
+        .then(response => {
+            console.log(response.data);
+            return response.data;
+        }).catch(err => err);
+}
 
-app.get('/games', async (req, res) => {
-    const name = "JAMAULS BBC";
-    const tag = "69420";
+app.get('/user', async (req, res) => {
+    const name = req.query.name;
+    const tag = req.query.tag;
+
     const userdata = await getPlayerPUUID(name, tag);
 
     const PUUID = userdata.puuid;
-    const matches = await getMatches(PUUID, 100)
 
-    res.json({userdata, matches});
-    
+    const playerData = await getUserData(PUUID)
+    res.json({playerData});
 });
 
 

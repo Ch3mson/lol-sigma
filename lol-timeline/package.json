@@ -1,7 +1,7 @@
 {
   "name": "lol-timeline",
   "private": true,
-  "prox6": "http://localhost:4000",
+  "proxy": "http://localhost:4000",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

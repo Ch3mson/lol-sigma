@@ -7,24 +7,17 @@ function App() {
 
   const [searchText, setSearchText] = useState("");
   const [tagLine, setTagLine] = useState("");
-  const API_KEY = "RGAPI-e3059c24-7b56-43d0-bba3-8f6870da3c2d";
+
   const [playerData, setPlayerData] = useState({});
 
-
-  function searchForPlayer(event) {
-    
-    var APICallString = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + searchText + "/" + tagLine + "?api_key=" + API_KEY;
-    console.log(APICallString);
-
-
-    axios.get(APICallString, { 'headers' : { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}  } ).then(function (response) {
-      //success:
-      console.log(response.data);
-      setPlayerData(response.data);
-    }).catch(function (error){
-      // catching error
-      console.log(error);
-    })
+  function searchForPlayer(e) {
+    axios.get("http://localhost:4000/user", { params: { name: searchText, tag: tagLine,}})
+      .then(function (response) {
+        setPlayerData(response.data.playerData);
+        console.log(response.data.playerData);
+      }).catch(function (error) {
+        console.log(error);
+      })
   }
 
   return (
@@ -62,7 +55,7 @@ function App() {
               </>
               :
               <><p>No Player Data</p></>
-              }
+        }
 
     </>
   )
