@@ -3,7 +3,6 @@ var cors = require('cors')
 const axios = require('axios');
 require('dotenv').config();
 
-
 var app = express()
 app.use(cors());
 
@@ -17,7 +16,7 @@ function getPlayerPUUID(playerName, playerTag) {
         }).catch(err => {
             console.log(err);
         });
-    }
+}
 
 function getMatches(puuid, count) {
     return axios.get("https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?start=0&count=" + count + "&api_key=" + API_KEY)
@@ -27,7 +26,7 @@ function getMatches(puuid, count) {
         }).catch(err => {
             console.log(err);
         });
-    }
+}
 
 function getUserData(puuid) {
     return axios.get("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/" + puuid + "?api_key=" + API_KEY)
@@ -37,7 +36,7 @@ function getUserData(puuid) {
         }).catch(err => {
             console.log(err);
         });
-    }
+}
 
 app.get('/user', async (req, res) => {
     const name = req.query.name;
@@ -46,9 +45,10 @@ app.get('/user', async (req, res) => {
     const userdata = await getPlayerPUUID(name, tag);
 
     const PUUID = userdata.puuid;
+    const matchList = await getMatches(PUUID, 10)
 
     const playerData = await getUserData(PUUID)
-    res.json({playerData}); 
+    res.json({playerData: playerData, matchList: matchList}); 
 });
 
 

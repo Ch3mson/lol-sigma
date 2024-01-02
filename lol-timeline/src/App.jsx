@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import Overview from './components/overview';
+import Home from './components/home';
 
 function App() {
 
@@ -54,7 +55,7 @@ function App() {
                 <Overview name={playerData.name} profID={playerData.profileIconId} />
               </>
               :
-              <><p>No Player Data</p></>
+              <><Home /></>
         }
 
     </>
