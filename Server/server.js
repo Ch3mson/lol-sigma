@@ -48,7 +48,7 @@ app.get('/user', async (req, res) => {
     const PUUID = userdata.puuid;
 
     const playerData = await getUserData(PUUID)
-    res.json({playerData});
+    res.json({playerData}); 
 });
 
 
