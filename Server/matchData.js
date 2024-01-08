@@ -37,13 +37,13 @@ async function wonAgainstMe(matchData, yourPUUID, otherPlayersPUUID) {
         }
     }
 
-    if (didIWin == true && playerWin(otherPlayersPUUID) == true) {
+    if (didIWin && playerWin(otherPlayersPUUID)) {
         return (" won with you.");
-    } else if (didIWin == true && playerWin(otherPlayersPUUID) == false) {
+    } else if (didIWin && !playerWin(otherPlayersPUUID)) {
         return (" lost to you.");
-    } else if (didIWin == false && playerWin(otherPlayersPUUID) == true) {
+    } else if (!didIWin && playerWin(otherPlayersPUUID)) {
         return (" beat you.");
-    } else if (didIWin == false && playerWin(otherPlayersPUUID) == false) {
+    } else if (!didIWin && !playerWin(otherPlayersPUUID)) {
         return (" lost with you.");
     } else {
         return (" SOMETHINGS WRONG HERE!");
