@@ -12,8 +12,8 @@
   <li><s>Perform API calls through a server request</s></li>
   <li>Server updates information on MongoDB, checking if a new match is added or not. If it's a new match, update the database. if not, don't make changes.</li>
     <ul>
-      <li>Use localhost</li>
-      <li><s>Set up Google cloud</s></li>
+      <li><s>Use localhost</s></li>
+      <li>Set up Google cloud</li>
     </ul>
   <li>Request database information about the user, and match the selected champion and opponents</li>
   <li>Display on client side</li>
