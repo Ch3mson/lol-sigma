@@ -6,6 +6,10 @@
 
 <p>This is an introductory project for me in learning how to make API calls using express, displaying them using React/Vite, and becoming better with TailwindCSS styling. Additionally, MongoDB will be used (eventually once i get there), to store user data, so players can constantly update their stats while they use the app, to avoid rate limits. As it is used more, players will have more up to date information on their user.</p>
 
+<h1>to-do list:</h1>
+- [] test
+- [x] test
+
 <h1>Technologies</h1>
 <ul>
   <li>React/Vite</li>
