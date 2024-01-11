@@ -8,8 +8,12 @@
 
 <h1>to-do list:</h1>
 <ol>
-  <li>one</li>
-  <li>one</li>
+  <li>Build client search bar to take user information</li>
+  <li><s>Perform API calls through a server request</s></li>
+  <li>Server updates information on MongoDB, checking if a new match is added or not. If it's a new match, update the database. if not, don't make changes.</li>
+  <li>Request database information about the user, and match the selected champion and opponents</li>
+  <li>Display on client side</li>
+  <li>completed!</li>
 </ol>
 <h1>Technologies</h1>
 <ul>
@@ -17,4 +21,5 @@
   <li>TailwindCSS</li>
   <li>Express</li>
   <li>(MongoDB)</li>
+  <li>(Google CLoud)</li>
 </ul>
