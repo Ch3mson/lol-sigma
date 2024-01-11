@@ -13,7 +13,7 @@
 <h1>to-do list:</h1>
 <ol>
   <li><s>Build client search bar to take user information</s></li>
-  <li>==Perform API calls through a server request==/li>
+  <li>==Perform API calls through a server request==</li>
   <li>Server updates information on MongoDB, checking if a new match is added or not. If it's a new match, update the database. if not, don't make changes.</li>
     <ul>
       <li><s>Use localhost</s></li>
