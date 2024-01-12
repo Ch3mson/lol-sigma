@@ -13,11 +13,11 @@
 <h1>to-do list:</h1>
 <ol>
   <li><s>Build client search bar to take user information</s></li>
-  <li><mark>Perform API calls through a server request</mark></li>
+  <li>Perform API calls through a server request</li>
   <li>Server updates information on MongoDB, checking if a new match is added or not. If it's a new match, update the database. if not, don't make changes.</li>
     <ul>
       <li><s>Use localhost</s></li>
-      <li>Set up Google cloud</li>
+      <li><s>Set up Google cloud</s></li>
     </ul>
   <li>Request database information about the user, and match the selected champion and opponents</li>
   <li>Display on client side</li>
