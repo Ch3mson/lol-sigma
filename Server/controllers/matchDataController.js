@@ -1,13 +1,3 @@
-require('dotenv').config();
-const axios = require('axios');
-// dealing with match ID's
-
-// MatchID -> Find your puuid -> find chap u used -> add wr with teamates champions -> subtract wr with opposing teams winrates
-
-const testMatch = "NA1_4879780745";
-const testPUUID = "JxR9JLMxhktNtSTcAn6i-OJdn557OK5MiyMMOqchefDizYxb6QnN1Old-8st9ba4DX-zxbSzLQmlZA";
-
-API_KEY = process.env.API_KEY;
 
 const getMatchData = async (matchKey) => {
     return axios.get("https://americas.api.riotgames.com/lol/match/v5/matches/" + matchKey + "?api_key=" + API_KEY)
@@ -49,9 +39,7 @@ async function wonAgainstMe(matchData, yourPUUID, otherPlayersPUUID) {
         return (" SOMETHINGS WRONG HERE!");
     }
 
-
 }
-
 
 async function getMyUser(PUUID, matchKey) {
     const matchData = await getMatchData(matchKey);
@@ -61,5 +49,7 @@ async function getMyUser(PUUID, matchKey) {
             console.log(matchData[i].puuid + " who belongs to: " + matchData[i].riotIdGameName + " who: " + didTheyWin);
     }
 }
+
+
 
 getMyUser(testPUUID, testMatch)

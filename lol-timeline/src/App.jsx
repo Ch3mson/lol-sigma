@@ -11,7 +11,7 @@ function App() {
 
   const [playerData, setPlayerData] = useState({});
 
-  function searchForPlayer(e) {
+/*  function searchForPlayer(e) {
     axios.get("http://localhost:4000/user", { params: { name: searchText, tag: tagLine,}})
       .then(function (response) {
         setPlayerData(response.data.playerData);
@@ -19,6 +19,30 @@ function App() {
       }).catch(function (error) {
         console.log(error);
       })
+  }
+
+  */
+
+  async function searchForPlayer(e) {
+    try {
+      const response = await fetch("http//localhost:4000/user", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          prompt: e.input
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`http error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (err) {
+      console.error('error:', err);
+    }
   }
 
   return (
