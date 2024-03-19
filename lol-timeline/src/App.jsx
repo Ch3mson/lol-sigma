@@ -1,89 +1,20 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './App.css';
-import Overview from './components/overview';
-import Home from './components/home';
+import Front from './pages/front';
+import Overview from './pages/overview';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
 
-  const [searchText, setSearchText] = useState("");
-  const [tagLine, setTagLine] = useState("");
-
-  const [playerData, setPlayerData] = useState({});
-
-/*  function searchForPlayer(e) {
-    axios.get("http://localhost:4000/user", { params: { name: searchText, tag: tagLine,}})
-      .then(function (response) {
-        setPlayerData(response.data.playerData);
-        console.log(response.data.playerData);
-      }).catch(function (error) {
-        console.log(error);
-      })
-  }
-
-  */
-
-  async function searchForPlayer(e) {
-    try {
-      const response = await fetch("http//localhost:4000/user", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          prompt: e.input
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error(`http error! status: ${response.status}`);
-      }
-
-      return await response.json();
-    } catch (err) {
-      console.error('error:', err);
-    }
-  }
-
   return (
     <>
-
-      <div className="flex flex-col items-center p-3">
-        <>
-          <div className="flex flex-row space-x-2">
-            <input 
-              type="text" 
-              className="py-5 px-4 rounded bg-[#25234a] text-white focus:outline-none w-80 h-12" // Set height with h-12
-              placeholder="Enter Summoner Name"
-              onChange={e => setSearchText(e.target.value)}
-            />
-
-            <input 
-              type="text" 
-              className="py-2 px-4 rounded bg-[#25234a] text-white focus:outline-none w-40 h-12" // Set height with h-12
-              placeholder="Tagline #"
-              onChange={e => setTagLine(e.target.value)}
-            />
-            
-            <button 
-              className="py-2 px-4 rounded bg-[#25234a] text-white hover:bg-[#444087] focus:outline-none h-12" // Set height with h-12
-              onClick={e => searchForPlayer(e)}
-            >
-              Search for player
-            </button>
-          </div>
-        </>   
-      </div>
-        {JSON.stringify(playerData) != '{}' ? 
-              <>
-                <Overview name={playerData.name} profID={playerData.profileIconId} />
-              </>
-              :
-              <><Home /></>
-        }
-
+        <Routes>
+            <Route path="/" element={<Front/>}/>
+            <Route path="/users/:PUUID" element={<Overview/>}/>
+        </Routes>
     </>
-  )
+  );
+
 }
 
 export default App

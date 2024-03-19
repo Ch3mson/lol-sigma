@@ -3,16 +3,19 @@ var cors = require('cors');
 const { connectToDb, getDb } = require('./db');
 const mongoose = require('mongoose'); // Require Mongoose
 const User = require('./models/userModel');
+const fetch = require('node-fetch');
+const axios = require('axios');
 
 const app = express();
 app.use(cors());
+
 require('dotenv').config();
 
 let db
 connectToDb((err) => {
      if (!err) {
-        app.listen(3000, () => {
-            console.log("Server started on 3000");
+        app.listen(4000, () => {
+            console.log("Express started on 4000");
         });
         db = getDb();
      }
@@ -34,59 +37,31 @@ app.get('/users', (req, res) => {
         }) // either toArray or forEach
 }) 
 
-// dealing with match ID's
 
-// MatchID -> Find your puuid -> find chap u used -> add wr with teamates champions -> subtract wr with opposing teams winrates
+app.get('/users/:PUUID', (req, res) => {
+    db.collection('users')
+        .findOne({PUUID: req.params.PUUID})
+        .then(doc => {
+            res.status(200).json(doc)
+        })
+        .catch(err => {
+            res.status(500).json({error: 'could not fetch documents'})
+        })
+})
 
-/*
-const testMatch = "NA1_4879780745";
-const testPUUID = "JxR9JLMxhktNtSTcAn6i-OJdn557OK5MiyMMOqchefDizYxb6QnN1Old-8st9ba4DX-zxbSzLQmlZA";
+app.get('/ch3mson', async (req, res) => {
+    const playerName = "Ch3mson";
+    const DATA = await getPlayerPUUID(playerName);
+    res.json(DATA);
+})
 
-
-const API_KEY = process.env.API_KEY;
-
-function getPlayerPUUID(playerName, playerTag) {
-    return axios.get("https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + playerName + "/" + playerTag + "?api_key=" + API_KEY)
-        .then(response => {
-            console.log(response.data);
-            return response.data;
-        }).catch(err => {
-            console.log(err);
-        });
+const getPlayerPUUID = async (name) => {
+    try {
+        const response = await axios.get("https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Ch3mson/69420?api_key=RGAPI-046e9079-c21e-41d3-9ea2-1f84b0173f10");
+        console.log(response.data);
+        return response.data;
+    } catch (err) {
+        console.error(err);
+        return err;
+    }
 }
-
-function getMatches(puuid, count) {
-    return axios.get("https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?start=0&count=" + count + "&api_key=" + API_KEY)
-        .then(response => {
-            console.log(response.data);
-            return response.data;
-        }).catch(err => {
-            console.log(err);
-        });
-}
-
-function getUserData(puuid) {
-    return axios.get("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/" + puuid + "?api_key=" + API_KEY)
-        .then(response => {
-            console.log(response.data);
-            return response.data;
-        }).catch(err => {
-            console.log(err);
-        });
-}
-
-app.get('/user', async (req, res) => {
-    const name = req.query.name;
-    const tag = req.query.tag;
-
-    const userdata = await getPlayerPUUID(name, tag);
-
-    const PUUID = userdata.puuid;
-    const matchList = await getMatches(PUUID, 10)
-
-    const playerData = await getUserData(PUUID)
-    res.json({playerData: playerData, matchList: matchList}); 
-});
-
-
-  */

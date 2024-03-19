@@ -1,12 +1,30 @@
+require('dotenv').config();
 
-const getMatchData = async (matchKey) => {
-    return axios.get("https://americas.api.riotgames.com/lol/match/v5/matches/" + matchKey + "?api_key=" + API_KEY)
-        .then(response => {
-            return response.data.info.participants;
-        }).catch(err => {
-            console.log(err);
-        })
-}
+
+const testMatch = "NA1_4879780745";
+const testPUUID = "JxR9JLMxhktNtSTcAn6i-OJdn557OK5MiyMMOqchefDizYxb6QnN1Old-8st9ba4DX-zxbSzLQmlZA";
+
+
+const API_KEY = process.env.API_KEY;
+
+
+const getMatchData = async (MatchID) => {
+
+const MATCHURL = `https://americas.api.riotgames.com/lol/match/v5/matches/${MatchID}?api_key=${API_KEY}`
+    try {
+      const response = await fetch(MATCHURL);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      return await response.json();
+
+    } catch (error) {
+      console.error("Error fetching match data:", error);
+      throw error;
+    }
+  }
+  
 
 async function wonAgainstMe(matchData, yourPUUID, otherPlayersPUUID) {
 
@@ -43,13 +61,16 @@ async function wonAgainstMe(matchData, yourPUUID, otherPlayersPUUID) {
 
 async function getMyUser(PUUID, matchKey) {
     const matchData = await getMatchData(matchKey);
+    const participantData = matchData.info.participants;
 
-    for (let i = 0; i < matchData.length; i++) {
-            var didTheyWin = await wonAgainstMe(matchData, PUUID, matchData[i].puuid)
-            console.log(matchData[i].puuid + " who belongs to: " + matchData[i].riotIdGameName + " who: " + didTheyWin);
+
+    for (let i = 0; i < participantData.length; i++) {
+
+            var didTheyWin = await wonAgainstMe(participantData, PUUID, participantData[i].puuid)
+            console.log(participantData[i].puuid + " who belongs to: " + participantData[i].riotIdGameName + " who: " + didTheyWin);
     }
 }
 
 
 
-getMyUser(testPUUID, testMatch)
+getMyUser(testPUUID, testMatch);

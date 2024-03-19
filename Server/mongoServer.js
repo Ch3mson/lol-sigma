@@ -14,7 +14,7 @@ async function run() {
   try {
     // Connect the client to the server
     await client.connect();
-    console.log("Connected successfully to server");
+    console.log("Connected successfully to THE MONGODB server");
 
     // Get the database
     const db = client.db(dbName);
